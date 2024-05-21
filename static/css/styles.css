@@ -8,3 +8,12 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+#google-txtfld {
+    display: inline-block;
+    align-items: center;
+    height: 55px;
+    font-size: 16pt;
+    border-radius: 8px;
+    border-color: aliceblue;
+}
