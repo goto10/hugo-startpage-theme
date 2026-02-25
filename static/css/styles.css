@@ -9,6 +9,47 @@ body {
     background-size: cover;
 }
 
+/* Weather Widget Styles */
+#weather-widget {
+    background: rgba(0,0,0,0.18);
+    border-radius: 12px;
+    padding: 8px 18px 8px 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    min-width: 220px;
+    margin: 0 16px;
+}
+#weather-main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+#weather-icon {
+    width: 48px;
+    height: 48px;
+}
+#weather-temp {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+#weather-highlow {
+    font-size: 1em;
+    color: #eee;
+    margin-left: 8px;
+}
+#weather-date {
+    font-size: 2em !important;
+    font-weight: 550;
+    color: #ccc;
+    margin-top: 2px;
+    text-align: center;
+}
+
+.mdl-layout__header {
+    min-height: 90px !important;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
 #google-txtfld {
     display: inline-block;
     align-items: center;

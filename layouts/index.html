@@ -6,17 +6,59 @@
     </head>
     <body class="mdl-base">
         <div class="mdl-layout__container"></div>
-            <div class="mdl-layout mdl-js-layout">
-                {{ partial "header.html" . }}
-                <main class="mdl-layout__content">
-                    <div class="mdl-grid">
-                        <div class="mdl-cell mdl-cell--4-col"></div>
-                        <div class="mdl-cell mdl-cell--4-col">{{ partial "search-google.html" . }}</div>
-                        <div class="mdl-cell mdl-cell--4-col"></div>
-                      </div>
-                      {{ partial "grid.html" . }}
-                </main>
-                {{ partial "footer.html" . }}
-            </div>
+        <div class="mdl-layout mdl-js-layout">
+            {{ partial "header.html" . }}
+            <main class="mdl-layout__content">
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--4-col"></div>
+                    <div class="mdl-cell mdl-cell--4-col">{{ partial "search-google.html" . }}</div>
+                    <div class="mdl-cell mdl-cell--4-col"></div>
+                </div>
+                {{ partial "grid.html" . }}
+            </main>
+            {{ partial "footer.html" . }}
+        </div>
+        <script>
+// OpenWeatherMap API config
+const OWM_API_KEY = '4b3f54414e4fd57b0c35ba11dcfe79f1'; // <-- Replace with your API key
+const CITY = 'Concord'; // <-- Change to your city
+const UNITS = 'imperial'; // 'imperial' for °F, 'metric' for °C
+
+function getWeather() {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(CITY)}&appid=${OWM_API_KEY}&units=${UNITS}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            if (data.cod !== 200) throw new Error(data.message);
+            const icon = data.weather[0].icon;
+            const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+            document.getElementById('weather-icon').src = iconUrl;
+            document.getElementById('weather-icon').style.display = '';
+            document.getElementById('weather-temp').textContent = `${Math.round(data.main.temp)}°`;
+            document.getElementById('weather-highlow').textContent = `H: ${Math.round(data.main.temp_max)}° L: ${Math.round(data.main.temp_min)}°`;
+        })
+        .catch(() => {
+            document.getElementById('weather-widget').style.display = 'none';
+        });
+}
+
+function formatDate(date) {
+    // Format as 'EEEE, MMM d'
+    return date.toLocaleDateString(undefined, {
+        weekday: 'long',
+        month: 'short',
+        day: 'numeric',
+    });
+}
+
+function setDate() {
+    document.getElementById('weather-date').textContent = formatDate(new Date());
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    getWeather();
+    setDate();
+});
+</script>
     </body>
 </html>
